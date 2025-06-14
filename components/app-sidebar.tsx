@@ -1,12 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { BsPen, BsPencilFill, BsPlus, BsX, BsCheckLg } from "react-icons/bs";
+import {
+  BsPencilFill,
+  BsX,
+  BsCheckLg,
+  BsPlusCircle,
+  BsSearch,
+} from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Chat } from "@/types/chat";
 import Link from "next/link";
 import { Input } from "@/ui/input";
+import Image from "next/image";
 
 type AppSidebarProps = {
   chats: Chat[];
@@ -59,23 +66,34 @@ export default function AppSidebar({
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-background border-r border-border flex flex-col">
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-foreground">Chats</h2>
+          <h2 className="text-lg font-semibold text-foreground flex gap-2">
+            <Image
+              src={"/logo.png"}
+              width={30}
+              height={10}
+              alt="M3 Chat"
+              className="rounded-lg border-2"
+            />
+            M3 Chat
+          </h2>
+        </div>
+        <div className="flex flex-col gap-2">
           <Button
-            variant="outline"
-            size="sm"
+            variant={"ghost"}
             onClick={createNewChat}
             aria-label="Create new chat"
-            className="p-1 rounded-md"
+            className="p-1 rounded-md items-center flex text-left justify-start gap-2"
           >
-            <BsPlus size={18} />
+            <BsPlusCircle size={7} />
+            New Chat
           </Button>
+          <Link
+            href={"/privacy"}
+            className="hover:underline text-muted-foreground/50 hover:text-muted-foreground duration-300"
+          >
+            Privacy Policy
+          </Link>
         </div>
-        <Link
-          href={"/privacy"}
-          className="hover:underline text-muted-foreground/50 hover:text-muted-foreground duration-300"
-        >
-          Privacy Policy
-        </Link>
       </div>
 
       <ScrollArea className="flex-grow p-2">

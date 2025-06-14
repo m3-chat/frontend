@@ -277,7 +277,7 @@ export default function Home() {
               rows={2}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="resize-none"
+              className="resize-none p-3"
               placeholder={
                 activeChat
                   ? "Ask something..."
