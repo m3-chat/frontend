@@ -40,6 +40,10 @@ export const models = [
     value: "deepseek-coder:6.7b",
   },
   {
+    label: "DeepSeek V2 16B (General Purpose)",
+    value: "deepseek-v2:16b"
+  },
+  {
     label: "StarCoder2 7B (Coding)",
     value: "starcoder2:7b",
   },
