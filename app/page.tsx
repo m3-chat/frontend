@@ -71,7 +71,6 @@ export default function Home() {
 
   const activeChat = chats.find((c) => c.id === activeChatId) ?? null;
 
-  // Add a message to the active chat
   const addMessage = React.useCallback(
     (msg: Message) => {
       if (!activeChatId) return;
@@ -86,20 +85,17 @@ export default function Home() {
     [activeChatId]
   );
 
-  // This useEffect handles AI response streaming for the last user message, including when a new chat is created
   React.useEffect(() => {
     if (!activeChatId || !hasMounted) return;
     const chat = chats.find((c) => c.id === activeChatId);
     if (!chat) return;
 
-    // Find last user message without bot reply
     const messages = chat.messages;
     if (messages.length === 0 || messages[messages.length - 1].role !== "user")
       return;
     if (messages.length >= 2 && messages[messages.length - 2].role === "bot")
-      return; // Already replied
+      return;
 
-    // Async function to fetch AI response
     async function fetchAI() {
       setIsLoading(true);
 
@@ -125,7 +121,6 @@ export default function Home() {
         const decoder = new TextDecoder();
         let accumulated = "";
 
-        // Add placeholder bot message
         addMessage({ role: "bot", text: "" });
 
         while (true) {
@@ -160,15 +155,12 @@ export default function Home() {
     }
 
     fetchAI();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeChatId, chats, model, hasMounted]);
 
-  // Submit handler for input
   async function handleSubmit() {
     if (!input.trim()) return;
 
     if (!activeChatId) {
-      // No active chat, create new chat with first user message
       const newId = crypto.randomUUID();
       const newChat: Chat = {
         id: newId,
@@ -178,11 +170,9 @@ export default function Home() {
       setChats((prev) => [...prev, newChat]);
       setActiveChatId(newId);
       setInput("");
-      // AI response will be handled in the useEffect watching chats + activeChatId
       return;
     }
 
-    // Normal case: add user message to existing active chat
     addMessage({ role: "user", text: input });
     setInput("");
   }

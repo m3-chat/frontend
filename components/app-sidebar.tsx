@@ -5,6 +5,7 @@ import { BsPlus, BsTrash } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Chat, Message } from "@/types/chat";
+import Link from "next/link";
 
 type AppSidebarProps = {
   chats: Chat[];
@@ -33,17 +34,27 @@ export default function AppSidebar({
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-background border-r border-border flex flex-col">
-      <div className="flex items-center justify-between p-4 border-b border-border">
-        <h2 className="text-lg font-semibold text-foreground">Chats</h2>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={createNewChat}
-          aria-label="Create new chat"
-          className="p-1 rounded-md"
-        >
-          <BsPlus size={18} />
-        </Button>
+      <div className="p-4 border-b border-border">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold text-foreground">Chats</h2>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={createNewChat}
+            aria-label="Create new chat"
+            className="p-1 rounded-md"
+          >
+            <BsPlus size={18} />
+          </Button>
+        </div>
+        <div>
+          <Link
+            href={"/privacy"}
+            className="hover:underline text-muted-foreground/50 hover:text-muted-foreground duration-300"
+          >
+            Privacy Policy
+          </Link>
+        </div>
       </div>
 
       <ScrollArea className="flex-grow p-2">
