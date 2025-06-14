@@ -1,4 +1,7 @@
 # M3 Chat
+![](https://vercelbadge.vercel.app/api/myferr/m3-chat)
+[![License: AGPL v3](https://img.shields.io/github/license/m3-chat/frontend?style=flat-square)](./LICENSE)
+
 M3 Chat (or m3-chat) is a 100% open-source and free AI chat web app with no account requirements with 13 models.
 
 ## Why use M3 Chat?
