@@ -7,6 +7,8 @@ import {
   BsCheckLg,
   BsPlusCircle,
   BsSearch,
+  BsGithub,
+  BsTwitterX,
 } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -170,6 +172,14 @@ export default function AppSidebar({
           })}
         </ul>
       </ScrollArea>
+      <div className="p-4 flex gap-3">
+        <Link href={"https://github.com/m3-chat/"}>
+          <BsGithub />
+        </Link>
+        <Link href={"https://x.com/m3chat/"}>
+          <BsTwitterX />
+        </Link>
+      </div>
     </aside>
   );
 }
