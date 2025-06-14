@@ -25,4 +25,4 @@ I'm currently running all models on a **Mac Studio M3 Ultra** (which is why it's
 - [x]  Devstral (Coding) - `devstral`
 
 ## Want to contribute?
-M3 Chat is open to contributions!
+M3 Chat is open to contributions, suggestions, or any feedback!
