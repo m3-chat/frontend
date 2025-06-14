@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { BsPlus, BsTrash } from "react-icons/bs";
+import { BsPen, BsPencilFill, BsPlus, BsX, BsCheckLg } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { Chat, Message } from "@/types/chat";
+import type { Chat } from "@/types/chat";
 import Link from "next/link";
+import { Input } from "@/ui/input";
 
 type AppSidebarProps = {
   chats: Chat[];
@@ -13,6 +14,7 @@ type AppSidebarProps = {
   onSelectChat: (id: string) => void;
   onCreateChat: (newChat: Chat) => void;
   onDeleteChat: (id: string) => void;
+  onRenameChat: (id: string, newName: string) => void;
 };
 
 export default function AppSidebar({
@@ -21,7 +23,28 @@ export default function AppSidebar({
   onSelectChat,
   onCreateChat,
   onDeleteChat,
+  onRenameChat,
 }: AppSidebarProps) {
+  const [editingChatId, setEditingChatId] = React.useState<string | null>(null);
+  const [newName, setNewName] = React.useState<string>("");
+
+  const startRenaming = (chatId: string, currentName: string) => {
+    setEditingChatId(chatId);
+    setNewName(currentName);
+  };
+
+  const confirmRename = (
+    e: React.MouseEvent | React.KeyboardEvent,
+    chatId: string
+  ) => {
+    e.stopPropagation();
+    if (newName.trim()) {
+      onRenameChat(chatId, newName.trim());
+    }
+    setEditingChatId(null);
+    setNewName("");
+  };
+
   const createNewChat = () => {
     const newChat: Chat = {
       id: crypto.randomUUID(),
@@ -47,14 +70,12 @@ export default function AppSidebar({
             <BsPlus size={18} />
           </Button>
         </div>
-        <div>
-          <Link
-            href={"/privacy"}
-            className="hover:underline text-muted-foreground/50 hover:text-muted-foreground duration-300"
-          >
-            Privacy Policy
-          </Link>
-        </div>
+        <Link
+          href={"/privacy"}
+          className="hover:underline text-muted-foreground/50 hover:text-muted-foreground duration-300"
+        >
+          Privacy Policy
+        </Link>
       </div>
 
       <ScrollArea className="flex-grow p-2">
@@ -66,6 +87,8 @@ export default function AppSidebar({
         <ul className="flex flex-col space-y-1">
           {chats.map((chat) => {
             const isActive = chat.id === activeChatId;
+            const isEditing = chat.id === editingChatId;
+
             return (
               <li
                 key={chat.id}
@@ -76,20 +99,54 @@ export default function AppSidebar({
                 }`}
                 onClick={() => onSelectChat(chat.id)}
               >
-                <span className="truncate max-w-[180px]">
-                  {chat.name || "Untitled Chat"}
-                </span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDeleteChat(chat.id);
-                  }}
-                  className="p-1 hover:text-destructive"
-                  aria-label="Delete chat"
-                  title="Delete chat"
-                >
-                  <BsTrash size={14} />
-                </button>
+                <div className="flex-grow max-w-[180px] truncate">
+                  {isEditing ? (
+                    <Input
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") confirmRename(e, chat.id);
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                      autoFocus
+                      className="w-full px-1 py-0.5 rounded-sm border-none"
+                    />
+                  ) : (
+                    <span>{chat.name || "Untitled Chat"}</span>
+                  )}
+                </div>
+                <div className="flex gap-0.5 ml-2">
+                  {isEditing ? (
+                    <button
+                      onClick={(e) => confirmRename(e, chat.id)}
+                      className="p-1 px-2 hover:bg-black/20 rounded-lg duration-200"
+                      title="Confirm rename"
+                    >
+                      <BsCheckLg size={16} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        startRenaming(chat.id, chat.name);
+                      }}
+                      className="p-1 px-2 hover:bg-black/20 rounded-lg duration-200"
+                      title="Rename chat"
+                    >
+                      <BsPencilFill size={14} />
+                    </button>
+                  )}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDeleteChat(chat.id);
+                    }}
+                    className="p-1 hover:bg-black/20 rounded-lg duration-200"
+                    title="Delete chat"
+                  >
+                    <BsX size={24} />
+                  </button>
+                </div>
               </li>
             );
           })}

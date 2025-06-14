@@ -35,6 +35,12 @@ export default function Home() {
     if (activeChatId === id) setActiveChatId(null);
   };
 
+  const handleRenameChat = (id: string, newName: string) => {
+    setChats((prev) =>
+      prev.map((chat) => (chat.id === id ? { ...chat, name: newName } : chat))
+    );
+  };
+
   React.useEffect(() => {
     setHasMounted(true);
     // Load chats from localStorage
@@ -198,6 +204,7 @@ export default function Home() {
         onSelectChat={onSelectChat}
         onCreateChat={onCreateChat}
         onDeleteChat={onDeleteChat}
+        onRenameChat={handleRenameChat}
       />
       <div className="ml-64 flex-grow flex flex-col items-center p-4 space-y-4 overflow-auto mb-44">
         <main className="w-full max-w-3xl">
