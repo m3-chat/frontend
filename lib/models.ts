@@ -37,6 +37,7 @@ export const models = [
   },
   {
     label: "Qwen 3 (General Purpose)",
+    value: "qwen3"
   },
   {
     label: "DeepSeek Coder 6.7B (Code)",
