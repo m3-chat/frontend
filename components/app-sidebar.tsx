@@ -89,12 +89,6 @@ export default function AppSidebar({
             <BsPlusCircle size={7} />
             New Chat
           </Button>
-          <Link
-            href={"/privacy"}
-            className="hover:underline text-muted-foreground/50 hover:text-muted-foreground duration-300"
-          >
-            Privacy Policy
-          </Link>
         </div>
       </div>
 
@@ -172,12 +166,18 @@ export default function AppSidebar({
           })}
         </ul>
       </ScrollArea>
-      <div className="p-4 flex gap-3">
+      <div className="p-4 flex gap-3 items-center">
         <Link href={"https://github.com/m3-chat/"}>
           <BsGithub />
         </Link>
         <Link href={"https://x.com/m3chat/"}>
           <BsTwitterX />
+        </Link>
+        <Link href={"/status"} className="hover:text-muted-foreground/80">
+          Status
+        </Link>
+        <Link href={"/privacy"} className="hover:text-muted-foreground/80">
+          Privacy Policy
         </Link>
       </div>
     </aside>
