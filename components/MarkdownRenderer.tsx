@@ -76,11 +76,13 @@ const components: Components = {
 
 type Props = {
   content: string;
+  className?: string;
+  id?: string;
 };
 
-export default function MarkdownRenderer({ content }: Props) {
+export default function MarkdownRenderer({ content, className, id }: Props) {
   return (
-    <div className="prose max-w-none">
+    <div className={`prose max-w-none ${className}`} id={id}>
       <ReactMarkdown
         components={components}
         rehypePlugins={[rehypeRaw, rehypeHighlight]}

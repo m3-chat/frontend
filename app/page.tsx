@@ -18,6 +18,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import type { Chat, Message } from "@/types/chat";
+import { Clipboard, ClipboardCheck, Repeat } from "lucide-react";
 
 const STORAGE_KEY = "savedchats";
 const ACTIVE_CHAT_KEY = "activeChatId";
@@ -29,6 +30,7 @@ export default function Home() {
   const [hasMounted, setHasMounted] = React.useState(false);
   const [chats, setChats] = React.useState<Chat[]>([]);
   const [activeChatId, setActiveChatId] = React.useState<string | null>(null);
+  const [isCopied, setIsCopied] = React.useState(false);
 
   const onSelectChat = (id: string) => setActiveChatId(id);
   const onCreateChat = (newChat: Chat) => {
@@ -188,6 +190,13 @@ export default function Home() {
 
   if (!hasMounted) return null;
 
+  const copy = () => {
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
+
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-hidden">
       <aside className="hidden md:block w-64 flex-shrink-0 border-r border-border">
@@ -253,31 +262,76 @@ export default function Home() {
                 </motion.div>
               ) : null}
 
-              {activeChat?.messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`w-full flex ${
-                    msg.role === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <motion.div
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    className={cn(
-                      "p-3 rounded-md whitespace-pre-wrap",
-                      msg.role === "user"
-                        ? "bg-secondary text-white text-right max-w-sm"
-                        : "text-foreground text-left w-full max-w-3xl"
-                    )}
+              {activeChat?.messages.map((msg, i) => {
+                const isBot = msg.role === "bot";
+                const messageId = `message-${i}`;
+
+                return (
+                  <div
+                    key={i}
+                    className={`w-full flex ${
+                      msg.role === "user" ? "justify-end" : "justify-start"
+                    }`}
                   >
-                    {msg.role === "bot" ? (
-                      <MarkdownRenderer content={msg.text} />
-                    ) : (
-                      msg.text
-                    )}
-                  </motion.div>
-                </div>
-              ))}
+                    <div className="flex flex-col">
+                      <motion.div
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        className={cn(
+                          "p-3 rounded-md whitespace-pre-wrap",
+                          msg.role === "user"
+                            ? "bg-secondary text-white text-right max-w-sm"
+                            : "text-foreground text-left w-full max-w-3xl"
+                        )}
+                      >
+                        {isBot ? (
+                          <MarkdownRenderer content={msg.text} id={messageId} />
+                        ) : (
+                          msg.text
+                        )}
+                      </motion.div>
+
+                      {isBot && (
+                        <div className="flex gap-2 mt-1">
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => {
+                              const el = document.getElementById(messageId);
+                              if (el) {
+                                window.navigator.clipboard.writeText(
+                                  el.innerText
+                                );
+                              }
+                              copy();
+                            }}
+                          >
+                            {isCopied ? (
+                              <ClipboardCheck size={16} />
+                            ) : (
+                              <Clipboard size={16} />
+                            )}
+                          </Button>
+
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => {
+                              const previousUser = activeChat.messages[i - 1];
+                              if (previousUser?.role === "user") {
+                                setInput(previousUser.text);
+                                setTimeout(handleSubmit, 0);
+                              }
+                            }}
+                          >
+                            <Repeat />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </ScrollArea>
         </main>
