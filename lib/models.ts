@@ -36,12 +36,15 @@ export const models = [
     value: "qwen2.5-coder",
   },
   {
+    label: "Qwen 3 (General Purpose)",
+  },
+  {
     label: "DeepSeek Coder 6.7B (Code)",
     value: "deepseek-coder:6.7b",
   },
   {
     label: "DeepSeek V2 16B (General Purpose)",
-    value: "deepseek-v2:16b"
+    value: "deepseek-v2:16b",
   },
   {
     label: "StarCoder2 7B (Coding)",
