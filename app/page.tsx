@@ -227,7 +227,7 @@ export default function Home() {
       <div className="flex flex-col flex-1 relative px-2 sm:px-4 pt-4 pb-[6.5rem] overflow-y-auto">
         <main className="w-full max-w-3xl mx-auto space-y-4">
           <ScrollArea>
-            <div className="flex flex-col space-y-2 mt-8">
+            <div className="flex flex-col space-y-2 mt-12 mb-36">
               {!activeChat || activeChat.messages.length === 0 ? (
                 <motion.div initial={{ y: 50 }} animate={{ y: 0 }}>
                   <MarkdownRenderer
@@ -309,7 +309,6 @@ export default function Home() {
                 <Combobox
                   inputs={models}
                   onSelect={(val: string) => {
-                    clearChat();
                     setModel(val);
                   }}
                 />
