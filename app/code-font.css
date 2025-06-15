@@ -1,0 +1,6 @@
+@import "monaspace-font/neon.css";
+
+pre[class*="language-"],
+code[class*="language-"] {
+  font-family: "Monaspace Neon", serif;
+}

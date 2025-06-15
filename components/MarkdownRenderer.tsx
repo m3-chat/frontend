@@ -26,16 +26,18 @@ const CodeBlock: React.FC<any> = ({
 
   if (inline) {
     return (
-      <code className={className} {...props}>
+      <pre className={className} {...props}>
         {children}
-      </code>
+      </pre>
     );
   }
 
   return (
     <div className="relative group my-2">
-      <pre className={className} {...props}>
-        <code id="code">{children}</code>
+      <pre className={`${className} border rounded-xl`} {...props}>
+        <code id="code" className="text-sm">
+          {children}
+        </code>
       </pre>
 
       <button
