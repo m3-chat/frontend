@@ -56,11 +56,11 @@ export const models = [
     value: "starcoder2:7b",
   },
   {
-    label: "Magistral (Lightweight Custom)",
+    label: "Magistral (Reasoning)",
     value: "magistral",
   },
   {
-    label: "Devstral (Experimental)",
+    label: "Devstral (Code)",
     value: "devstral",
   },
 ];
