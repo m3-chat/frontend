@@ -4,6 +4,10 @@ export const models = [
     value: "llama3:8b",
   },
   {
+    label: "LLaMA 2 (Uncensored)",
+    value: "llama2-uncensored",
+  },
+  {
     label: "Gemma 3 (General Purpose)",
     value: "gemma3",
   },
