@@ -47,7 +47,7 @@ export function Combobox({ inputs, onSelect }: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[250px] justify-between"
+          className="w-xs justify-between hover:cursor-pointer"
         >
           <div className="flex items-center gap-2">
             {selectedOption?.icon && (

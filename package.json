@@ -30,7 +30,8 @@
     "rehype-highlight": "^7.0.2",
     "rehype-prism-plus": "^2.0.1",
     "rehype-raw": "^7.0.0",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

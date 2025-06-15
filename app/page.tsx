@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { BsArrowReturnRight } from "react-icons/bs";
+import { BsArrowReturnRight, BsList } from "react-icons/bs";
 import { Combobox } from "@/components/combobox";
 import { models } from "@/lib/models";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -10,8 +10,13 @@ import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/app-sidebar";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import type { Chat, Message } from "@/types/chat";
 
 const STORAGE_KEY = "savedchats";
@@ -34,7 +39,6 @@ export default function Home() {
     setChats((prev) => prev.filter((chat) => chat.id !== id));
     if (activeChatId === id) setActiveChatId(null);
   };
-
   const handleRenameChat = (id: string, newName: string) => {
     setChats((prev) =>
       prev.map((chat) => (chat.id === id ? { ...chat, name: newName } : chat))
@@ -43,23 +47,18 @@ export default function Home() {
 
   React.useEffect(() => {
     setHasMounted(true);
-    // Load chats from localStorage
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       try {
         const savedChats: Chat[] = JSON.parse(raw);
         setChats(savedChats);
-
-        // Load active chat ID or fallback to first chat's id
         const savedActiveId = localStorage.getItem(ACTIVE_CHAT_KEY);
         if (savedActiveId && savedChats.find((c) => c.id === savedActiveId)) {
           setActiveChatId(savedActiveId);
         } else if (savedChats.length > 0) {
           setActiveChatId(savedChats[0].id);
         }
-      } catch {
-        // ignore parse errors
-      }
+      } catch {}
     }
   }, []);
 
@@ -104,7 +103,6 @@ export default function Home() {
 
     async function fetchAI() {
       setIsLoading(true);
-
       const userMessage = messages[messages.length - 1].text;
 
       const query = new URLSearchParams({
@@ -116,7 +114,6 @@ export default function Home() {
 
       try {
         const res = await fetch(`/api/gen?${query.toString()}`);
-
         if (!res.body) {
           addMessage({ role: "bot", text: "Error: No response body" });
           setIsLoading(false);
@@ -126,7 +123,6 @@ export default function Home() {
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
         let accumulated = "";
-
         addMessage({ role: "bot", text: "" });
 
         while (true) {
@@ -138,7 +134,6 @@ export default function Home() {
             const updated = [...prev];
             const chatIndex = updated.findIndex((c) => c.id === activeChatId);
             if (chatIndex === -1) return prev;
-
             const lastMessages = updated[chatIndex].messages;
             if (lastMessages[lastMessages.length - 1]?.role === "bot") {
               lastMessages[lastMessages.length - 1] = {
@@ -165,7 +160,6 @@ export default function Home() {
 
   async function handleSubmit() {
     if (!input.trim()) return;
-
     if (!activeChatId) {
       const newId = crypto.randomUUID();
       const newChat: Chat = {
@@ -192,24 +186,48 @@ export default function Home() {
     );
   }
 
-  if (!hasMounted) {
-    return null;
-  }
+  if (!hasMounted) return null;
 
   return (
-    <SidebarProvider>
-      <AppSidebar
-        chats={chats}
-        activeChatId={activeChatId}
-        onSelectChat={onSelectChat}
-        onCreateChat={onCreateChat}
-        onDeleteChat={onDeleteChat}
-        onRenameChat={handleRenameChat}
-      />
-      <div className="ml-64 flex-grow flex flex-col items-center p-4 space-y-4 overflow-auto mb-44">
-        <main className="w-full max-w-3xl">
+    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
+      <aside className="hidden md:block w-64 flex-shrink-0 border-r border-border">
+        <AppSidebar
+          chats={chats}
+          activeChatId={activeChatId}
+          onSelectChat={onSelectChat}
+          onCreateChat={onCreateChat}
+          onDeleteChat={onDeleteChat}
+          onRenameChat={handleRenameChat}
+        />
+      </aside>
+
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            className="md:hidden fixed top-4 left-4 z-50"
+          >
+            <BsList className="w-5 h-5" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-[260px] p-0">
+          <SheetTitle>Sidebar</SheetTitle>
+          <AppSidebar
+            chats={chats}
+            activeChatId={activeChatId}
+            onSelectChat={onSelectChat}
+            onCreateChat={onCreateChat}
+            onDeleteChat={onDeleteChat}
+            onRenameChat={handleRenameChat}
+          />
+        </SheetContent>
+      </Sheet>
+
+      <div className="flex flex-col flex-1 relative px-2 sm:px-4 pt-4 pb-[6.5rem] overflow-y-auto">
+        <main className="w-full max-w-3xl mx-auto space-y-4">
           <ScrollArea>
-            <div className="flex flex-col space-y-2 mt-22">
+            <div className="flex flex-col space-y-2 mt-8">
               {!activeChat || activeChat.messages.length === 0 ? (
                 <motion.div initial={{ y: 50 }} animate={{ y: 0 }}>
                   <MarkdownRenderer
@@ -225,10 +243,8 @@ export default function Home() {
                       <Button
                         key={i}
                         variant="secondary"
-                        className="max-w-sm px-1 text-left hover:cursor-pointer"
-                        onClick={() => {
-                          setInput(i);
-                        }}
+                        className="max-w-sm px-1 text-left"
+                        onClick={() => setInput(i)}
                       >
                         {i}
                       </Button>
@@ -236,6 +252,7 @@ export default function Home() {
                   </div>
                 </motion.div>
               ) : null}
+
               {activeChat?.messages.map((msg, i) => (
                 <div
                   key={i}
@@ -264,18 +281,16 @@ export default function Home() {
             </div>
           </ScrollArea>
         </main>
+      </div>
 
-        <footer className="fixed bottom-0 left-0 right-0 z-20 p-4 ml-64 flex justify-center">
-          <motion.div
-            className="p-2 w-full max-w-3xl shadow-lg rounded-md backdrop-blur-md"
-            initial={{ y: 50 }}
-            animate={{ y: 0 }}
-          >
+      <footer className="fixed bottom-0 left-0 right-0 z-20 px-4 py-3 md:ml-64">
+        <div className="w-full max-w-3xl mx-auto backdrop-blur-sm bg-background/20">
+          <div className="p-3 border rounded-2xl flex flex-col gap-2">
             <Textarea
               rows={2}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="resize-none p-3"
+              className="resize-none p-3 shadow-xl"
               placeholder={
                 activeChat
                   ? "Ask something..."
@@ -289,9 +304,8 @@ export default function Home() {
                 }
               }}
             />
-
-            <div className="flex justify-between items-center space-x-2 mt-2">
-              <div className="flex gap-2 items-center">
+            <div className="flex justify-between items-center space-x-2 flex-wrap sm:flex-nowrap">
+              <div className="flex gap-2 items-center flex-wrap">
                 <Combobox
                   inputs={models}
                   onSelect={(val: string) => {
@@ -300,8 +314,8 @@ export default function Home() {
                   }}
                 />
                 <Button
-                  variant={"outline"}
-                  className="hover:cursor-pointer rounded-full"
+                  variant="outline"
+                  className="rounded-full hover:cursor-pointer"
                   onClick={clearChat}
                   disabled={!activeChat}
                 >
@@ -309,16 +323,17 @@ export default function Home() {
                 </Button>
               </div>
               <Button
+                className="rounded-full w-full sm:w-auto"
                 onClick={handleSubmit}
                 disabled={isLoading || input.trim() === ""}
                 aria-label="Send message"
               >
-                <BsArrowReturnRight />
+                <BsArrowReturnRight className="mx-auto sm:mx-0" />
               </Button>
             </div>
-          </motion.div>
-        </footer>
-      </div>
-    </SidebarProvider>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
