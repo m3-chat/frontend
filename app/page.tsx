@@ -32,6 +32,17 @@ export default function Home() {
   const [activeChatId, setActiveChatId] = React.useState<string | null>(null);
   const [isCopied, setIsCopied] = React.useState(false);
 
+  const chatsRef = React.useRef(chats);
+  const activeChatIdRef = React.useRef(activeChatId);
+
+  React.useEffect(() => {
+    chatsRef.current = chats;
+  }, [chats]);
+
+  React.useEffect(() => {
+    activeChatIdRef.current = activeChatId;
+  }, [activeChatId]);
+
   const onSelectChat = (id: string) => setActiveChatId(id);
   const onCreateChat = (newChat: Chat) => {
     setChats((prev) => [...prev, newChat]);
@@ -78,19 +89,15 @@ export default function Home() {
 
   const activeChat = chats.find((c) => c.id === activeChatId) ?? null;
 
-  const addMessage = React.useCallback(
-    (msg: Message) => {
-      if (!activeChatId) return;
-      setChats((prev) =>
-        prev.map((chat) =>
-          chat.id === activeChatId
-            ? { ...chat, messages: [...chat.messages, msg] }
-            : chat
-        )
-      );
-    },
-    [activeChatId]
-  );
+  const addMessage = React.useCallback((msg: Message) => {
+    const id = activeChatIdRef.current;
+    if (!id) return;
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === id ? { ...chat, messages: [...chat.messages, msg] } : chat
+      )
+    );
+  }, []);
 
   React.useEffect(() => {
     if (!activeChatId || !hasMounted) return;
@@ -100,7 +107,7 @@ export default function Home() {
     const messages = chat.messages;
     if (messages.length === 0 || messages[messages.length - 1].role !== "user")
       return;
-    if (messages.length >= 2 && messages[messages.length - 2].role === "bot")
+    if (messages.length >= 1 && messages[messages.length - 1].role === "bot")
       return;
 
     async function fetchAI() {
@@ -134,18 +141,21 @@ export default function Home() {
 
           setChats((prev) => {
             const updated = [...prev];
-            const chatIndex = updated.findIndex((c) => c.id === activeChatId);
+            const chatIndex = updated.findIndex(
+              (c) => c.id === activeChatIdRef.current
+            );
             if (chatIndex === -1) return prev;
-            const lastMessages = updated[chatIndex].messages;
-            if (lastMessages[lastMessages.length - 1]?.role === "bot") {
-              lastMessages[lastMessages.length - 1] = {
+
+            const messages = updated[chatIndex].messages;
+            if (messages[messages.length - 1]?.role === "bot") {
+              messages[messages.length - 1] = {
                 role: "bot",
                 text: accumulated,
               };
             }
             updated[chatIndex] = {
               ...updated[chatIndex],
-              messages: lastMessages,
+              messages,
             };
             return updated;
           });
@@ -158,11 +168,11 @@ export default function Home() {
     }
 
     fetchAI();
-  }, [activeChatId, chats, model, hasMounted]);
+  }, [chats, activeChatId, hasMounted, model]);
 
   async function handleSubmit() {
     if (!input.trim()) return;
-    if (!activeChatId) {
+    if (!activeChatIdRef.current) {
       const newId = crypto.randomUUID();
       const newChat: Chat = {
         id: newId,
