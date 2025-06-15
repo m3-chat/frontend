@@ -4,6 +4,11 @@
  * @author Joe Gibson (@gibsjose)
  */
 
+/**
+ * Modified by myferr <https://github.com/myferr> to use hljs- classes.
+ * This modification is for M3 Chat. <https://m3-chat.vercel.app>
+*/
+
 code[class*="language-"],
 pre[class*="language-"] {
   color: #c5c8c6;
