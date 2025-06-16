@@ -52,6 +52,10 @@ export const models = [
     value: "deepseek-v2:16b",
   },
   {
+    label: "Dolphin Mistral 7B (Uncensored, Code)",
+    value: "dolphin-mistral:7b",
+  },
+  {
     label: "StarCoder2 7B (Coding)",
     value: "starcoder2:7b",
   },
