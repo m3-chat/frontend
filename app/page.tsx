@@ -348,13 +348,13 @@ export default function Home() {
       </div>
 
       <footer className="fixed bottom-0 left-0 right-0 z-20 px-4 py-3 md:ml-64">
-        <div className="w-full max-w-3xl mx-auto backdrop-blur-sm bg-background/20">
+        <div className="w-full max-w-3xl mx-auto backdrop-blur-sm bg-gradient-to-b from-background/20 to-background">
           <div className="p-3 border rounded-2xl flex flex-col gap-2">
             <Textarea
               rows={2}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="resize-none p-3 shadow-xl"
+              className="resize-none p-3 shadow-xl bg-gradient-to-b from-secondary to-transparent"
               placeholder={
                 activeChat
                   ? "Ask something..."
@@ -378,7 +378,7 @@ export default function Home() {
                 />
                 <Button
                   variant="outline"
-                  className="rounded-full hover:cursor-pointer"
+                  className="rounded-full hover:cursor-pointer bg-gradient-to-b from-secondary to-transparent"
                   onClick={clearChat}
                   disabled={!activeChat}
                 >
@@ -386,7 +386,7 @@ export default function Home() {
                 </Button>
               </div>
               <Button
-                className="rounded-full w-full sm:w-auto"
+                className="rounded-full w-full sm:w-auto bg-gradient-to-b from-primary to-primary/40"
                 onClick={handleSubmit}
                 disabled={isLoading || input.trim() === ""}
                 aria-label="Send message"
