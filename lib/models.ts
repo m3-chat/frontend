@@ -56,6 +56,10 @@ export const models = [
     value: "dolphin-mistral:7b",
   },
   {
+    label: "Dolphin 3 8B (General Purpose)",
+    value: "dolphin3",
+  },
+  {
     label: "StarCoder2 7B (Coding)",
     value: "starcoder2:7b",
   },
