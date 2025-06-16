@@ -37,7 +37,7 @@ export function Combobox({ inputs, onSelect }: ComboboxProps) {
   const handleSelect = (currentValue: string) => {
     setValue(currentValue);
     setOpen(false);
-    onSelect?.(currentValue); // ✅ Call the callback if provided
+    onSelect?.(currentValue);
   };
 
   return (
@@ -47,7 +47,7 @@ export function Combobox({ inputs, onSelect }: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-xs justify-between hover:cursor-pointer"
+          className="w-xs justify-between hover:cursor-pointer bg-gradient-to-b from-secondary to-transparent"
         >
           <div className="flex items-center gap-2">
             {selectedOption?.icon && (
