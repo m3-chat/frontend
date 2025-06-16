@@ -67,7 +67,7 @@ export default function AppSidebar({
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-background border-r border-border flex flex-col">
       <div className="p-4 border-b border-border">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-3 bg-gradient-to-b from-secondary/50 to-transparent p-2 rounded-xl">
           <h2 className="text-lg font-semibold text-foreground flex gap-2">
             <Image
               src={"/logo.png"}
@@ -108,7 +108,7 @@ export default function AppSidebar({
                 key={chat.id}
                 className={`flex items-center justify-between cursor-pointer rounded-md p-2 select-none transition-colors ${
                   isActive
-                    ? "bg-primary text-primary-foreground font-semibold"
+                    ? "bg-gradient-to-r from-primary to-primary/40 text-primary-foreground font-semibold"
                     : "hover:bg-muted"
                 }`}
                 onClick={() => onSelectChat(chat.id)}
@@ -167,16 +167,28 @@ export default function AppSidebar({
         </ul>
       </ScrollArea>
       <div className="p-4 flex gap-3 items-center">
-        <Link href={"https://github.com/m3-chat/"}>
+        <Link
+          href={"https://github.com/m3-chat/"}
+          className="hover:text-muted-foreground/80"
+        >
           <BsGithub />
         </Link>
-        <Link href={"https://x.com/m3chat/"}>
+        <Link
+          href={"https://x.com/m3chat/"}
+          className="hover:text-muted-foreground/80"
+        >
           <BsTwitterX />
         </Link>
-        <Link href={"/status"} className="hover:text-muted-foreground/80">
+        <Link
+          href={"/status"}
+          className="hover:underline hover:text-muted-foreground/80"
+        >
           Status
         </Link>
-        <Link href={"/privacy"} className="hover:text-muted-foreground/80">
+        <Link
+          href={"/privacy"}
+          className="hover:underline hover:text-muted-foreground/80"
+        >
           Privacy Policy
         </Link>
       </div>
