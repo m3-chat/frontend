@@ -18,7 +18,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import type { Chat, Message } from "@/types/chat";
-import { Clipboard, ClipboardCheck, Repeat } from "lucide-react";
+import { AudioLines, Clipboard, ClipboardCheck, Repeat } from "lucide-react";
 
 const STORAGE_KEY = "savedchats";
 const ACTIVE_CHAT_KEY = "activeChatId";
@@ -31,6 +31,18 @@ export default function Home() {
   const [chats, setChats] = React.useState<Chat[]>([]);
   const [activeChatId, setActiveChatId] = React.useState<string | null>(null);
   const [isCopied, setIsCopied] = React.useState(false);
+  const [isSpeaking, setIsSpeaking] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleEnd = () => setIsSpeaking(false);
+    speechSynthesis.addEventListener("end", handleEnd);
+    speechSynthesis.addEventListener("error", handleEnd);
+
+    return () => {
+      speechSynthesis.removeEventListener("end", handleEnd);
+      speechSynthesis.removeEventListener("error", handleEnd);
+    };
+  }, []);
 
   const chatsRef = React.useRef(chats);
   const activeChatIdRef = React.useRef(activeChatId);
@@ -322,7 +334,6 @@ export default function Home() {
                               <Clipboard size={16} />
                             )}
                           </Button>
-
                           <Button
                             size="icon"
                             variant="ghost"
@@ -335,6 +346,33 @@ export default function Home() {
                             }}
                           >
                             <Repeat />
+                          </Button>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            disabled={isLoading}
+                            onClick={() => {
+                              if (isSpeaking) {
+                                speechSynthesis.cancel();
+                                setIsSpeaking(false);
+                              } else {
+                                const el = document.getElementById(messageId);
+                                if (el) {
+                                  const utterance =
+                                    new SpeechSynthesisUtterance(el.innerText);
+                                  utterance.lang = "en-US";
+                                  utterance.rate = 0.7;
+                                  setIsSpeaking(true);
+                                  speechSynthesis.speak(utterance);
+                                }
+                              }
+                            }}
+                          >
+                            {isSpeaking ? (
+                              <span className="text-sm">■</span>
+                            ) : (
+                              <AudioLines />
+                            )}
                           </Button>
                         </div>
                       )}
