@@ -18,7 +18,7 @@ export default function PrivacyPage() {
             </Button>
           </Link>
           <h1 className="text-3xl font-bold">Privacy Policy</h1>
-          <p className="text-muted-foreground">Last updated: June 14th, 2025</p>
+          <p className="text-muted-foreground">Last updated: June 17th, 2025</p>
         </CardHeader>
         <CardContent className="space-y-6 text-sm leading-relaxed">
           <section>
