@@ -9,6 +9,7 @@ import {
   BsSearch,
   BsGithub,
   BsTwitterX,
+  BsDiscord,
 } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -166,31 +167,39 @@ export default function AppSidebar({
           })}
         </ul>
       </ScrollArea>
-      <div className="p-4 flex gap-3 items-center">
-        <Link
-          href={"https://github.com/m3-chat/"}
-          className="hover:text-muted-foreground/80"
-        >
-          <BsGithub />
-        </Link>
-        <Link
-          href={"https://x.com/m3chat/"}
-          className="hover:text-muted-foreground/80"
-        >
-          <BsTwitterX />
-        </Link>
-        <Link
-          href={"/status"}
-          className="hover:underline hover:text-muted-foreground/80"
-        >
-          Status
-        </Link>
-        <Link
-          href={"/privacy"}
-          className="hover:underline hover:text-muted-foreground/80"
-        >
-          Privacy Policy
-        </Link>
+      <div className="p-4 flex-col justify-start flex gap-3">
+        <div className="flex gap-2">
+          <Link
+            href={"https://github.com/m3-chat/"}
+            className="hover:text-muted-foreground/80"
+          >
+            <BsGithub />
+          </Link>
+          <Link
+            href={"https://x.com/m3chat/"}
+            className="hover:text-muted-foreground/80"
+          >
+            <BsTwitterX />
+          </Link>
+          <Link href={"/discord"}>
+            <BsDiscord />
+          </Link>
+        </div>
+        <div className="flex gap-5">
+          <Link
+            href={"/status"}
+            className="underline hover:text-muted-foreground/80"
+          >
+            Status
+          </Link>
+
+          <Link
+            href={"/privacy"}
+            className="underline hover:text-muted-foreground/80"
+          >
+            Privacy Policy
+          </Link>
+        </div>
       </div>
     </aside>
   );
