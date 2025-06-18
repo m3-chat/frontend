@@ -66,8 +66,8 @@ export default function AppSidebar({
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-background border-r border-border flex flex-col">
-      <div className="p-4 border-b border-border">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-gradient-to-b from-primary/5 via-secondary/30 to-primary/5 flex flex-col">
+      <div className="p-4">
         <div className="flex items-center justify-between mb-3 bg-gradient-to-b from-secondary/50 to-transparent p-2 rounded-xl">
           <h2 className="text-lg font-semibold text-foreground flex gap-2">
             <Image
@@ -82,10 +82,10 @@ export default function AppSidebar({
         </div>
         <div className="flex flex-col gap-2">
           <Button
-            variant={"ghost"}
+            size={"lg"}
             onClick={createNewChat}
             aria-label="Create new chat"
-            className="p-1 rounded-md items-center flex text-left justify-start gap-2"
+            className="p-1 hover:cursor-pointer bg-gradient-to-b from-secondary via-secondary/60 to-secondary/40 rounded-md items-center flex text-left justify-start gap-2"
           >
             <BsPlusCircle size={7} />
             New Chat
@@ -109,7 +109,7 @@ export default function AppSidebar({
                 key={chat.id}
                 className={`flex items-center justify-between cursor-pointer rounded-md p-2 select-none transition-colors ${
                   isActive
-                    ? "bg-gradient-to-r from-primary to-primary/40 text-primary-foreground font-semibold"
+                    ? "bg-gradient-to-r from-primary to-primary/40 text-primary-foreground text-sm font-semibold"
                     : "hover:bg-muted"
                 }`}
                 onClick={() => onSelectChat(chat.id)}
