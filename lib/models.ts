@@ -24,6 +24,10 @@ export const models = [
     value: "mistral",
   },
   {
+    label: "OpenCoder 8B (Code)",
+    value: "opencoder:8b"
+  },
+  {
     label: "Gemma 2B (Tiny + Reasonable)",
     value: "gemma:2b",
   },
