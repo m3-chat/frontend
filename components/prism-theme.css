@@ -1,147 +1,133 @@
-/**
- * atom-dark theme for `prism.js`
- * Based on Atom's `atom-dark` theme: https://github.com/atom/atom-dark-syntax
- * @author Joe Gibson (@gibsjose)
+/*
+ * Laserwave Theme originally by Jared Jones for Visual Studio Code
+ * https://github.com/Jaredk3nt/laserwave
+ *
+ * Ported for PrismJS by Simon Jespersen [https://github.com/simjes]
  */
-
-/**
- * Modified by myferr <https://github.com/myferr> to use hljs- classes.
- * This modification is for M3 Chat. <https://m3-chat.vercel.app>
-*/
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #c5c8c6;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  background: #27212e;
+  color: #ffffff;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace; /* this is the default */
+  /* The following properties are standard, please leave them as they are */
+  font-size: 1em;
   direction: ltr;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
   line-height: 1.5;
-
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  /* The following properties are also standard */
   -webkit-hyphens: none;
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
 }
 
-/* Code blocks */
-pre[class*="language-"] {
-  padding: 1em;
-  margin: 0.5em 0;
-  overflow: auto;
-  border-radius: 0.3em;
+code[class*="language-"]::-moz-selection,
+code[class*="language-"] ::-moz-selection,
+pre[class*="language-"]::-moz-selection,
+pre[class*="language-"] ::-moz-selection {
+  background: #eb64b927;
+  color: inherit;
 }
 
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-  background: #1d1f21;
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection,
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection {
+  background: #eb64b927;
+  color: inherit;
 }
 
-/* Inline code */
+/* Properties specific to code blocks */
+pre[class*="language-"] {
+  padding: 1em; /* this is standard */
+  margin: 0.5em 0; /* this is the default */
+  overflow: auto; /* this is standard */
+  border-radius: 0.5em;
+}
+
+/* Properties specific to inline code */
 :not(pre) > code[class*="language-"] {
-  padding: 0.1em;
-  border-radius: 0.3em;
+  padding: 0.2em 0.3em;
+  border-radius: 0.5rem;
+  white-space: normal; /* this is standard */
 }
 
 .hljs-comment,
 .hljs-prolog,
-.hljs-doctype,
 .hljs-cdata {
-  color: #7c7c7c;
+  color: #91889b;
 }
 
 .hljs-punctuation {
-  color: #c5c8c6;
+  color: #7b6995;
 }
 
-.namespace {
-  opacity: 0.7;
-}
-
-.hljs-property,
-.hljs-keyword,
-.hljs-tag {
-  color: #96cbfe;
-}
-
-.hljs-class-name {
-  color: #ffffb6;
-  text-decoration: underline;
-}
-
-.hljs-boolean,
-.hljs-constant {
-  color: #99cc99;
-}
-
-.hljs-symbol,
-.hljs-deleted {
-  color: #f92672;
+.hljs-builtin,
+.hljs-constant,
+.hljs-boolean {
+  color: #ffe261;
 }
 
 .hljs-number {
-  color: #ff73fd;
-}
-
-.hljs-selector,
-.hljs-attr-name,
-.hljs-string,
-.hljs-char,
-.hljs-builtin,
-.hljs-inserted {
-  color: #a8ff60;
-}
-
-.hljs-variable {
-  color: #c6c5fe;
-}
-
-.hljs-operator {
-  color: #ededed;
-}
-
-.hljs-entity {
-  color: #ffffb6;
-  cursor: help;
-}
-
-.hljs-url {
-  color: #96cbfe;
-}
-
-.language-css .hljs-string,
-.style .hljs-string {
-  color: #87c38a;
-}
-
-.hljs-atrule,
-.hljs-attr-value {
-  color: #f9ee98;
-}
-
-.hljs-function {
-  color: #dad085;
-}
-
-.hljs-regex {
-  color: #e9c062;
-}
-
-.hljs-important {
-  color: #fd971f;
+  color: #b381c5;
 }
 
 .hljs-important,
+.hljs-atrule,
+.hljs-property,
+.hljs-keyword {
+  color: #40b4c4;
+}
+
+.hljs-doctype,
+.hljs-operator,
+.hljs-inserted,
+.hljs-tag,
+.hljs-class-name,
+.hljs-symbol {
+  color: #74dfc4;
+}
+
+.hljs-attr-name,
+.hljs-function,
+.hljs-deleted,
+.hljs-selector {
+  color: #eb64b9;
+}
+
+.hljs-attr-value,
+.hljs-regex,
+.hljs-char,
+.hljs-string {
+  color: #b4dce7;
+}
+
+.hljs-entity,
+.hljs-url,
+.hljs-variable {
+  color: #ffffff;
+}
+
+/* The following rules are pretty similar across themes, but feel free to adjust them */
 .hljs-bold {
   font-weight: bold;
 }
 
 .hljs-italic {
   font-style: italic;
+}
+
+.hljs-entity {
+  cursor: help;
+}
+
+.hljs-namespace {
+  opacity: 0.7;
 }

@@ -1,6 +1,16 @@
 @import "monaspace-font/neon.css";
 
+@font-face {
+  font-family: "Berkeley Mono";
+  src: url("/fonts/berkeley_mono.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 pre[class*="language-"],
-code[class*="language-"] {
-  font-family: "Monaspace Neon", serif;
+code[class*="language-"],
+code,
+pre {
+  font-family: "Berkeley Mono", "Monaspace Neon", serif !important;
 }
