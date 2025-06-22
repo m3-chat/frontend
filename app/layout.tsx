@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./code-font.css";
-import "./dsans.css";
+import "./outfit.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "M3 Chat",
     description:
       "Open-source, free, privacy-focused AI chat with 10+ models and no account required.",
-    url: "https://m3-chat.vercel.app", // update if different
+    url: "https://m3-chat.vercel.app",
     siteName: "M3 Chat",
     images: [
       {
