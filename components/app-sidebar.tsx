@@ -66,7 +66,7 @@ export default function AppSidebar({
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-gradient-to-b from-primary/5 via-secondary/30 to-primary/5 flex flex-col">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-gradient-to-b from-primary/10 via-secondary/20 to-transparent flex flex-col">
       <div className="p-4">
         <div className="flex items-center justify-between mb-3 p-2 rounded-xl">
           <h2 className="text-lg font-semibold text-foreground flex gap-2">
@@ -95,9 +95,11 @@ export default function AppSidebar({
 
       <ScrollArea className="flex-grow p-2">
         {chats.length === 0 && (
-          <p className="text-center text-muted-foreground mt-4">
-            No chats yet. Click + to start a new chat.
-          </p>
+          <div>
+            <p className="text-center text-muted-foreground mt-4 bg-secondary/30 hover:bg-secondary duration-500 backdrop-blur-sm border px-6 rounded-2xl py-8">
+              No chats yet. Click + to start a new chat.
+            </p>
+          </div>
         )}
         <ul className="flex flex-col space-y-1">
           {chats.map((chat) => {
@@ -107,7 +109,7 @@ export default function AppSidebar({
             return (
               <li
                 key={chat.id}
-                className={`flex items-center justify-between cursor-pointer rounded-md p-2 select-none transition-colors ${
+                className={`flex items-center justify-between cursor-pointer py-1 rounded-md p-2 select-none transition-colors ${
                   isActive
                     ? "bg-gradient-to-r from-secondary to-secondary py-1 hover:to-primary/40 text-primary-foreground text-sm font-semibold"
                     : "hover:bg-muted"
