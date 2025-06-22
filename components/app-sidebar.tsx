@@ -66,9 +66,9 @@ export default function AppSidebar({
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-gradient-to-b from-primary/5 via-secondary/30 to-primary/5 flex flex-col">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-gradient-to-b from-primary/10 via-secondary/20 to-transparent flex flex-col">
       <div className="p-4">
-        <div className="flex items-center justify-between mb-3 bg-gradient-to-b from-secondary/50 to-transparent p-2 rounded-xl">
+        <div className="flex items-center justify-between mb-3 p-2 rounded-xl">
           <h2 className="text-lg font-semibold text-foreground flex gap-2">
             <Image
               src={"/logo.png"}
@@ -85,7 +85,7 @@ export default function AppSidebar({
             size={"lg"}
             onClick={createNewChat}
             aria-label="Create new chat"
-            className="p-1 hover:cursor-pointer bg-gradient-to-b from-secondary via-secondary/60 to-secondary/40 rounded-md items-center flex text-left justify-start gap-2"
+            className="p-1 hover:cursor-pointer bg-gradient-to-b from-primary via-primary/60 to-primary/40 rounded-md items-center flex text-left justify-start gap-2"
           >
             <BsPlusCircle size={7} />
             New Chat
@@ -95,9 +95,11 @@ export default function AppSidebar({
 
       <ScrollArea className="flex-grow p-2">
         {chats.length === 0 && (
-          <p className="text-center text-muted-foreground mt-4">
-            No chats yet. Click + to start a new chat.
-          </p>
+          <div>
+            <p className="text-center text-muted-foreground mt-4 bg-secondary/30 hover:bg-secondary duration-500 backdrop-blur-sm border px-6 rounded-2xl py-8">
+              No chats yet. Click + to start a new chat.
+            </p>
+          </div>
         )}
         <ul className="flex flex-col space-y-1">
           {chats.map((chat) => {
@@ -107,9 +109,9 @@ export default function AppSidebar({
             return (
               <li
                 key={chat.id}
-                className={`flex items-center justify-between cursor-pointer rounded-md p-2 select-none transition-colors ${
+                className={`flex items-center justify-between cursor-pointer py-1 rounded-md p-2 select-none transition-colors ${
                   isActive
-                    ? "bg-gradient-to-r from-primary to-primary/40 text-primary-foreground text-sm font-semibold"
+                    ? "bg-gradient-to-r from-secondary to-secondary py-1 hover:to-primary/40 text-primary-foreground text-sm font-semibold"
                     : "hover:bg-muted"
                 }`}
                 onClick={() => onSelectChat(chat.id)}
@@ -181,7 +183,7 @@ export default function AppSidebar({
           >
             <BsTwitterX />
           </Link>
-          <Link href={"/discord"}>
+          <Link href={"/discord"} className="hover:text-muted-foreground/80">
             <BsDiscord />
           </Link>
         </div>

@@ -262,7 +262,7 @@ export default function Home() {
               {!activeChat || activeChat.messages.length === 0 ? (
                 <motion.div initial={{ y: 50 }} animate={{ y: 0 }}>
                   <MarkdownRenderer
-                    content={`# Welcome to m3-chat!\n**m3-chat** is an open-source, completely free, no-account required, AI chat-bot web-app with **${models.length}** models!`}
+                    content={`# Welcome to M3 Chat!\n**M3 Chat** is an open-source, completely free, no-account required, AI chat-bot web-app with **${models.length}** models! :)`}
                   />
                   <div className="flex flex-col gap-3 mt-12">
                     {[
