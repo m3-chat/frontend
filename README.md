@@ -22,10 +22,12 @@
 M3 Chat is an OSS AI chat service that's completely free, private, actively maintained and built with Next.js
 
 ### Why use M3 Chat?
+
 Most AI chat web app services are slow, expensive, or require accounts (with heavy message limits). M3 Chat is an open-source, free, no account required, AI chat web app with unlimited messages.
 I'm currently running all models on a **Mac Studio M3 Ultra** (which is why it's named **M3** chat) using [Ollama](https://ollama.com).
 
 ## Models
+
 - [x] LLaMA 3 8B (General Purpose) — `llama3:8b`
 - [x] LLaMA 2 (Uncensored) — `llama2-uncensored`
 - [x] Gemma 3 (General Purpose) — `gemma3`
@@ -47,4 +49,5 @@ I'm currently running all models on a **Mac Studio M3 Ultra** (which is why it's
 - [x] Devstral (Code) — `devstral`
 
 ## Contributing
-M3 Chat is open to contributions, suggestions, or any feedback!
+
+M3 Chat is open to contributions, suggestions, or any feedback. Please follow our [CONTRIBUTING.md](https://github.com/m3-chat/.github/blob/main/CONTRIBUTING.md) guide.
