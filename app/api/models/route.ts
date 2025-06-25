@@ -1,0 +1,25 @@
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  try {
+    const res = await fetch("http://localhost:2000/api/models", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      console.error("Backend returned error:", res.status);
+      return NextResponse.json(
+        { error: "Backend fetch failed" },
+        { status: res.status }
+      );
+    }
+
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch (err) {
+    console.error("Error fetching models:", err);
+    return NextResponse.json({ error: "Fetch failed" }, { status: 500 });
+  }
+}
