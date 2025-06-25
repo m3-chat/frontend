@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const res = await fetch("http://localhost:2000/api/models", {
+    const res = await fetch(`${process.env.TUNNEL}/api/models`, {
       headers: {
         "Content-Type": "application/json",
       },
