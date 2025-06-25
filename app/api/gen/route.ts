@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 
-export const runtime = "edge"; // im gonna try the edge runtime one more time, it should stream
+export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
@@ -23,8 +23,8 @@ export async function GET(request: NextRequest) {
     return new Response(backendResponse.body, {
       status: backendResponse.status,
       headers: {
+        "bypass-tunnel-reminder": "true",
         "Content-Type": backendResponse.headers.get("Content-Type") || "text/plain",
-        // im not gonna set 'Transfer-Encoding', i'll let the backend handle it
       },
     });
   } catch (err) {
