@@ -172,7 +172,7 @@ export default function AppSidebar({
       <div className="p-4 flex-col justify-start flex gap-3">
         <div className="flex gap-2">
           <Link
-            href={"https://github.com/m3-chat/"}
+            href={"https://github.com/m3chat/"}
             className="hover:text-muted-foreground/80"
           >
             <BsGithub />
