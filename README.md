@@ -12,7 +12,7 @@
   <a href="https://m3-chat.vercel.app">
     <img src="https://deploy-badge.vercel.app/vercel/m3-chat?style=for-the-badge&name=Vercel&labelColor=000000&color=" alt="">
   </a>
-  <a href="./LICENSE"><img src="https://img.shields.io/github/license/m3-chat/frontend?logo=github&style=for-the-badge&labelColor=000000&color=" alt="License: AGPL v3"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/m3chat/frontend?logo=github&style=for-the-badge&labelColor=000000&color=" alt="License: AGPL v3"></a>
   <a href="https://discord.gg/8aNqjKFb"><img alt="Discord" src="https://img.shields.io/discord/1384581817755238430?logo=discord&style=for-the-badge&labelColor=000000&color="></a>
   <a href="https://github.com/orgs/m3-chat/discussions">
     <img src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&logo=github&labelColor=000000&logoWidth=20&logoColor=white">
