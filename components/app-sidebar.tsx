@@ -17,6 +17,7 @@ import type { Chat } from "@/types/chat";
 import Link from "next/link";
 import { Input } from "@/ui/input";
 import Image from "next/image";
+import { ThemeToggle } from "./ThemeMatcher";
 
 type AppSidebarProps = {
   chats: Chat[];
@@ -79,6 +80,7 @@ export default function AppSidebar({
             />
             M3 Chat
           </h2>
+          <ThemeToggle />
         </div>
         <div className="flex flex-col gap-2">
           <Button
