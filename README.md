@@ -2,7 +2,7 @@
   <a href="https://m3-chat.vercel.app">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/37242413-0907-4dfa-b5e9-feb28ed9d778">
-      <img src="https://github.com/user-attachments/assets/37242413-0907-4dfa-b5e9-feb28ed9d778" height="128">
+      <img src="https://github.com/user-attachments/assets/579b1390-22e9-48ee-83ac-97e5ef5c60b0" height="128">
     </picture>
     <h1 align="center">M3 Chat</h1>
   </a>
