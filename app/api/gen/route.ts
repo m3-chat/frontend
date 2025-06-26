@@ -18,9 +18,7 @@ export async function GET(request: NextRequest) {
   try {
     const backendResponse = await fetch(backendUrl, {
       headers: {
-        "User-Agent": "curl/7.79.1",
-        Accept: "*/*",
-        Referer: "http://localhost",
+        "ngrok-skip-browser-warning": "true",
       },
     });
 
@@ -31,6 +29,7 @@ export async function GET(request: NextRequest) {
     return new Response(backendResponse.body, {
       status: backendResponse.status,
       headers: {
+        "ngrok-skip-browser-warning": "true",
         "Content-Type":
           backendResponse.headers.get("Content-Type") || "text/plain",
       },
