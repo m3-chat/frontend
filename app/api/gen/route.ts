@@ -11,7 +11,9 @@ export async function GET(request: NextRequest) {
     return new Response("Missing params", { status: 400 });
   }
 
-  const backendUrl = `${process.env.TUNNEL}/api/gen?model=${encodeURIComponent(model)}&content=${encodeURIComponent(content)}`;
+  const backendUrl = `${process.env.TUNNEL}/api/gen?model=${encodeURIComponent(
+    model
+  )}&content=${encodeURIComponent(content)}`;
 
   try {
     const backendResponse = await fetch(backendUrl);
@@ -23,8 +25,9 @@ export async function GET(request: NextRequest) {
     return new Response(backendResponse.body, {
       status: backendResponse.status,
       headers: {
-        "bypass-tunnel-reminder": "true",
-        "Content-Type": backendResponse.headers.get("Content-Type") || "text/plain",
+        "User-Agent": "curl/7.79.1", // bypasses LocalXpose warning page
+        "Content-Type":
+          backendResponse.headers.get("Content-Type") || "text/plain",
       },
     });
   } catch (err) {
