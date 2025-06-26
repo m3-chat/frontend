@@ -16,7 +16,13 @@ export async function GET(request: NextRequest) {
   )}&content=${encodeURIComponent(content)}`;
 
   try {
-    const backendResponse = await fetch(backendUrl);
+    const backendResponse = await fetch(backendUrl, {
+      headers: {
+        "User-Agent": "curl/7.79.1",
+        Accept: "*/*",
+        Referer: "http://localhost",
+      },
+    });
 
     if (!backendResponse.body) {
       return new Response("No response body from backend", { status: 502 });
@@ -25,9 +31,6 @@ export async function GET(request: NextRequest) {
     return new Response(backendResponse.body, {
       status: backendResponse.status,
       headers: {
-        "User-Agent": "curl/7.79.1", // bypasses LocalXpose warning page
-        Accept: "*/*",
-        Referer: "http://localhost",
         "Content-Type":
           backendResponse.headers.get("Content-Type") || "text/plain",
       },
