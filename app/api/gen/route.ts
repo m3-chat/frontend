@@ -26,6 +26,8 @@ export async function GET(request: NextRequest) {
       status: backendResponse.status,
       headers: {
         "User-Agent": "curl/7.79.1", // bypasses LocalXpose warning page
+        Accept: "*/*",
+        Referer: "http://localhost",
         "Content-Type":
           backendResponse.headers.get("Content-Type") || "text/plain",
       },
