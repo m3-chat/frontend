@@ -5,6 +5,8 @@ export async function GET() {
     const res = await fetch(`${process.env.TUNNEL}/api/models`, {
       headers: {
         "User-Agent": "curl/7.79.1", // bypasses LocalXpose warning page
+        Accept: "*/*",
+        Referer: "http://localhost",
         "Content-Type": "application/json",
       },
     });
