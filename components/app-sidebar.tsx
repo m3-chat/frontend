@@ -67,7 +67,7 @@ export default function AppSidebar({
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-gradient-to-b from-primary/10 via-secondary/20 to-transparent flex flex-col">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 flex flex-col">
       <div className="p-4">
         <div className="flex items-center justify-between mb-3 p-2 rounded-xl">
           <h2 className="text-lg font-semibold text-foreground flex gap-2">
@@ -87,9 +87,7 @@ export default function AppSidebar({
             size={"lg"}
             onClick={createNewChat}
             aria-label="Create new chat"
-            className="p-1 hover:cursor-pointer bg-gradient-to-b from-primary via-primary/60 to-primary/40 rounded-md items-center flex text-left justify-start gap-2"
           >
-            <BsPlusCircle size={7} />
             New Chat
           </Button>
         </div>

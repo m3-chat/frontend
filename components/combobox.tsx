@@ -43,12 +43,7 @@ export function Combobox({ inputs, onSelect }: ComboboxProps) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-xs justify-between hover:cursor-pointer bg-gradient-to-b from-secondary to-transparent"
-        >
+        <Button variant="outline" role="combobox" aria-expanded={open}>
           <div className="flex items-center gap-2">
             {selectedOption?.icon && (
               <selectedOption.icon className="h-4 w-4" />

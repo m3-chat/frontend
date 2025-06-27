@@ -221,7 +221,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-hidden">
-      <aside className="hidden md:block w-64 flex-shrink-0 border-r border-border">
+      <aside className="hidden md:block w-64 flex-shrink-0 border-r border-border/50 hover:border-border transition-all duration-200">
         <AppSidebar
           chats={chats}
           activeChatId={activeChatId}
@@ -387,12 +387,12 @@ export default function Home() {
 
       <footer className="fixed bottom-0 left-0 right-0 z-20 px-4 py-3 md:ml-64">
         <div className="w-full max-w-3xl mx-auto backdrop-blur-sm bg-gradient-to-b from-background/20 to-background">
-          <div className="p-3 border rounded-2xl flex flex-col gap-2">
+          <div className="p-2 border border-border/50 rounded-2xl flex flex-col gap-2">
             <Textarea
-              rows={2}
+              rows={3}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="resize-none p-3 shadow-xl bg-gradient-to-b from-secondary to-transparent"
+              className="p-3 resize-none"
               placeholder={
                 activeChat
                   ? "Ask something..."
@@ -416,7 +416,6 @@ export default function Home() {
                 />
                 <Button
                   variant="outline"
-                  className="rounded-full hover:cursor-pointer bg-gradient-to-b from-secondary to-transparent"
                   onClick={clearChat}
                   disabled={!activeChat}
                 >
@@ -424,7 +423,6 @@ export default function Home() {
                 </Button>
               </div>
               <Button
-                className="rounded-full w-full sm:w-auto bg-gradient-to-b from-primary to-primary/40"
                 onClick={handleSubmit}
                 disabled={isLoading || input.trim() === ""}
                 aria-label="Send message"
