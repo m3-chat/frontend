@@ -24,6 +24,10 @@ export const models = [
     value: "mistral",
   },
   {
+    label: "Mixtral 8x22B",
+    value: "mixtral:8x22b"
+  },
+  {
     label: "OpenCoder 8B (Code)",
     value: "opencoder:8b"
   },
